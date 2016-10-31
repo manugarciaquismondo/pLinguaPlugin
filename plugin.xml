@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.gcn.plinguaplugin.editors.PlinguaEditor"
+            contributorClass="org.gcn.plinguaplugin.editors.PlinguaEditorContributor"
+            default="true"
+            extensions="pli"
+            icon="icons/plingua.gif"
+            id="org.gcn.psystemdeveloper.editors.PsystemMultiPageEditor"
+            name="Psystems Editor">
+      </editor>
+   </extension>
+   <extension
+         id="plinguaFileAuditor"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            callOnEmptyDelta="false"
+            hasNature="true">
+         <run
+               class="org.gcn.plinguaplugin.builder.PlinguaFileAuditor">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="pLinguaNature"
+         name="P-Lingua Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.gcn.plinguaplugin.builder.PlinguaNature">
+         </run>
+      </runtime>
+      <builder
+            id="org.gcn.plinguaplugin.plinguaFileAuditor">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.gcn.plinguaplugin.popupMenu"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="org.gcn.plinguaplugin.projectMenu"
+               label="P-Lingua"
+               path="additions">
+            <groupMarker
+                  name="content">
+            </groupMarker>
+            <separator
+                  name="additions">
+            </separator>
+         </menu>
+         <action
+               class="org.gcn.plinguaplugin.actions.ToggleNatureAction"
+               enablesFor="+"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.togglePlinguaProjectNature"
+               label="Add/Remove P-Lingua project nature"
+               menubarPath="org.gcn.plinguaplugin.projectMenu/content"
+               tooltip="Edit, simulate and translate P-System files">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.CreatePsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.createPsystemFromFolder"
+               label="New P-System"
+               menubarPath="org.gcn.plinguaplugin.projectMenu/content"
+               tooltip="Create a new P-system">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.ImportPsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.importPsystem"
+               label="Import P-System"
+               menubarPath="org.gcn.plinguaplugin.projectMenu/content">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="org.gcn.plinguaplugin.fileMenu"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               id="org.gcn.plinguaplugin.fileMenu"
+               label="P-Lingua"
+               path="additions">
+            <groupMarker
+                  name="content">
+            </groupMarker>
+            <separator
+                  name="additions">
+            </separator>
+         </menu>
+         <action
+               class="org.gcn.plinguaplugin.actions.CreateSimulatorAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.createSimulator"
+               label="New Simulation"
+               menubarPath="org.gcn.plinguaplugin.fileMenu/content"
+               tooltip="Create a simulator for the selected P-system">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.ExportPsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.exportPsystem"
+               label="Export P-System"
+               menubarPath="org.gcn.plinguaplugin.fileMenu/content">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.gcn.plinguaplugin.folderMenu"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IFolder">
+         <menu
+               id="org.gcn.plinguaplugin.folderMenu"
+               label="P-Lingua"
+               path="additions">
+            <groupMarker
+                  name="content">
+            </groupMarker>
+            <separator
+                  name="additions">
+            </separator>
+         </menu>
+         <action
+               class="org.gcn.plinguaplugin.actions.CreatePsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.createPsystemFromFolder"
+               label="New P-System"
+               menubarPath="org.gcn.plinguaplugin.folderMenu/content"
+               tooltip="Create a new P-system">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.ImportPsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.importPsystem"
+               label="Import P-System"
+               menubarPath="org.gcn.plinguaplugin.folderMenu/content">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/plingua.gif"
+            id="org.gcn.plinguaplugin.pLinguaImage"
+            natureId="org.gcn.plinguaplugin.pLinguaNature">
+      </image>
+   </extension>
+   <extension
+         id="org.gcn.plinguaplugin.plinguamarker"
+         name="Plingua Marker"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+      <super
+            type="org.eclipse.core.resources.textmarker">
+      </super>
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.gcn.plinguaplugin.workbenchActionSet"
+            label="Plingua Action Set"
+            visible="true">
+         <menu
+               id="org.gcn.plinguaplugin.workbenchMenu"
+               label="P-&amp;Lingua"
+               path="additions">
+            <groupMarker
+                  name="content">
+            </groupMarker>
+            <separator
+                  name="additions">
+            </separator>
+         </menu>
+         <action
+               class="org.gcn.plinguaplugin.actions.SimulateAction"
+               enablesFor="*"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.simulateAction"
+               label="&amp;Open Simulation Console"
+               menubarPath="org.gcn.plinguaplugin.workbenchMenu/content"
+               style="push"
+               toolbarPath="Normal/additions"
+               tooltip="Opens the simulation console">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.CreatePsystemAction"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.newPsystemBarAction"
+               label="New &amp;P-System"
+               menubarPath="org.gcn.plinguaplugin.workbenchMenu/content"
+               style="push"
+               toolbarPath="Normal/additions">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.CreateSimulatorAction"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.newSimulationBarAction"
+               label="&amp;New Simulation"
+               menubarPath="org.gcn.plinguaplugin.workbenchMenu/content"
+               style="push"
+               toolbarPath="Normal/additions">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.ImportPsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.importPsystemBarAction"
+               label="&amp;Import P-System"
+               menubarPath="org.gcn.plinguaplugin.workbenchMenu/content"
+               toolbarPath="Normal/additions">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.ExportPsystemAction"
+               enablesFor="1"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.exportPsystemBarAction"
+               label="&amp;Export P-System"
+               menubarPath="org.gcn.plinguaplugin.workbenchMenu/content"
+               toolbarPath="Normal/additions">
+         </action>
+         <action
+               class="org.gcn.plinguaplugin.actions.ToggleNatureAction"
+               enablesFor="+"
+               icon="icons/plingua.gif"
+               id="org.gcn.plinguaplugin.togglePlinguaProjectNatureBarAction"
+               label="&amp;Add/Remove P-Lingua project nature"
+               menubarPath="org.gcn.plinguaplugin.workbenchMenu/content"
+               toolbarPath="Normal/additions"
+               tooltip="Edit, simulate and translate P-System files">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.gcn.plinguaplugin.psystemCategory"
+            class="org.gcn.plinguaplugin.psystemWizard.PsystemWizard"
+            icon="icons/plingua.gif"
+            id="org.gcn.plinguaplugin.psystemWizard"
+            name="P-System">
+      </wizard>
+      <category
+            id="org.gcn.plinguaplugin.psystemCategory"
+            name="P-Lingua">
+      </category>
+   </extension>
+
+</plugin>
